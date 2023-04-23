@@ -1,0 +1,172 @@
+<div class="app-container">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+            <button pButton pRipple label="New product" icon="pi pi-plus" title="addProduct"
+                class="p-button-success mr-2" pAddRow (click)="addNewProduct()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" title="deleteProducts" class="p-button-danger"
+                (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+        </ng-template>
+
+
+    </p-toolbar>
+    <p-table #dt1 [value]="products" styleClass="p-datatable-gridlines" dataKey="id" editMode="row"
+        [(selection)]="selectedProducts" [tableStyle]="{'min-width': '50rem'}" [rows]="10" [rowHover]="true"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:1%"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                <th pSortableColumn="code" style="width:25%">Code <p-sortIcon field="code"></p-sortIcon></th>
+                <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="description" style="width:25%">Description <p-sortIcon
+                        field="description"></p-sortIcon></th>
+                <th pSortableColumn="price" style="width:25%">Price <p-sortIcon field="price"></p-sortIcon></th>
+                <th pSortableColumn="category" style="width:25%">Category <p-sortIcon field="category"></p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity" style="width:25%">Quantity <p-sortIcon field="quantity"></p-sortIcon>
+                </th>
+                <th pSortableColumn="inventoryStatus" style="width:25%">
+                    InventoryStatus 
+                <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                <th style="width:25%">Action</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>
+                    <input class="full-width" pInputText type="text" (input)="applyFilter($event, 'code', 'contains')"
+                        [value]="$any(dt1.filters['code'])?.value" placeholder="Search by code">
+                </th>
+                <th>
+                    <input class="full-width" pInputText type="text" (input)="applyFilter($event, 'name', 'contains')"
+                        [value]="$any(dt1.filters['name'])?.value" placeholder="Search by name">
+                </th>
+                <th>
+                    <input class="full-width" pInputText type="text"
+                        (input)="applyFilter($event, 'description', 'contains')"
+                        [value]="$any(dt1.filters['description'])?.value" placeholder="Search by description">
+                </th>
+                <th>
+                    <input class="full-width" pInputText type="number" min="0"
+                        (input)="applyFilter($event, 'price', 'equals')" [value]="$any(dt1.filters['price'])?.value"
+                        placeholder="Search by price">
+                </th>
+                <th>
+                    <input class="full-width" pInputText type="text"
+                        (input)="applyFilter($event, 'category', 'contains')"
+                        [value]="$any(dt1.filters['category'])?.value" placeholder="Search by category">
+                </th>
+                <th>
+                    <input class="full-width" pInputText type="number" min="0"
+                        (input)="applyFilter($event, 'quantity', 'equals')"
+                        [value]="$any(dt1.filters['quantity'])?.value" placeholder="Search by quantity">
+                </th>
+                <th>
+                    <input class="full-width" pInputText type="text"
+                        (input)="applyFilter($event, 'inventoryStatus', 'contains')"
+                        [value]="$any(dt1.filters['inventoryStatus'])?.value" placeholder="Search by inventoryStatus">
+                </th>
+                <th></th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="product">
+                <td>
+                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="full-width" pInputText type="text" title="code" [(ngModel)]="product.code"
+                                required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.code}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="full-width" pInputText type="text" title="name" [(ngModel)]="product.name"
+                                required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.name}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="full-width" pInputText type="text" title="description"
+                                [(ngModel)]="product.description" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.description}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="full-width" pInputText type="number" min="0" title="price"
+                                [(ngModel)]="product.price" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.price}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="full-width" pInputText type="text" title="category"
+                                [(ngModel)]="product.category" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.category}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="full-width" pInputText type="number" min="0" title="quantity"
+                                [(ngModel)]="product.quantity" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.quantity}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input class="full-width" pInputText type="text" title="inventoryStatus"
+                                [(ngModel)]="product.inventoryStatus" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{product.inventoryStatus}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" title="edit" pInitEditableRow
+                            icon="pi pi-pencil" (click)="onRowEditInit(product)"
+                            class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" title="saveEdit" pSaveEditableRow
+                            icon="pi pi-check" (click)="onSubmitProduct(product)"
+                            class="p-button-rounded p-button-text p-button-success mr-2"
+                            ></button>
+                        <button *ngIf="editing" pButton pRipple type="button" title="cancel" pCancelEditableRow
+                            icon="pi pi-times" (click)="onRowEditCancel(product, ri)"
+                            class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

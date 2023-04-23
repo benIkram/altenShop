@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { MessageService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { BadgeModule } from "primeng/badge";
 import { BreadcrumbModule } from "primeng/breadcrumb";
@@ -37,6 +37,8 @@ import { TabViewModule } from "primeng/tabview";
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from "primeng/tooltip";
+import { TagModule } from 'primeng/tag';
+import { MessagesModule } from 'primeng/messages';
 
 
 @NgModule({
@@ -77,7 +79,9 @@ import { TooltipModule } from "primeng/tooltip";
     ToastModule,
     SidebarModule,
     ColorPickerModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    TagModule,
+    MessagesModule
   ],
   exports: [
     TableModule,
@@ -115,11 +119,14 @@ import { TooltipModule } from "primeng/tooltip";
     ToastModule,
     SidebarModule,
     ColorPickerModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    TagModule,
+    MessagesModule
   ],
   providers: [
     DialogService,
-    MessageService
+    MessageService,
+    ConfirmationService
   ],
 })
 export class PrimeNGModule { }

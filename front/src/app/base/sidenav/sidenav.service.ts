@@ -25,7 +25,6 @@ export class SidenavService {
 
     public getExpanded(): boolean {
         return this._expanded || this._pinned;
-        // return !this._isMobileDisplay && (this._expanded || this._pinned);
     }
 
     public getPinned(): boolean {

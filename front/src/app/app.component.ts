@@ -1,6 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { SidenavService } from 'app/base/sidenav/sidenav.service';
 
 const TRANSPARENT_NAV_PAGES = [ 'login' ];
